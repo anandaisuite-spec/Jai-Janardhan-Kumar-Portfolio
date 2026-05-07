@@ -16,6 +16,11 @@ export default function Contact() {
     e.preventDefault();
     setStatus('sending');
     setErrorMsg('');
+    if (!supabase) {
+      setStatus('error');
+      setErrorMsg('Contact form is not configured yet.');
+      return;
+    }
     const { error } = await supabase.from('contact_messages').insert({
       name: form.name.trim(),
       email: form.email.trim(),
